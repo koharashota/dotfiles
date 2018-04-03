@@ -1,0 +1,32 @@
+# -*- mode: gitconfig; -*-
+[color]
+	ui = auto
+
+[alias]
+	alias = "!f(){ git config -l | grep alias; };f"
+	st = status --short --branch
+	ci = commit
+	co = checkout
+	cp = cherry-pick
+	br = branch
+	showtrackedignored = "ls-files -i --exclude-standard"
+	current-branch = rev-parse --abbrev-ref HEAD
+	cb = current-branch
+	rd = rev-parse --show-toplevel
+	wt = worktree
+	wta = "!f(){ git worktree add $(git rd)/git-worktrees/$1 $1; };f"
+	wtab = "!f(){ git worktree add $(git rd)/git-worktrees/$1 -b $1; };f"
+	wtc = "!f(){ rm -r $(git rd)/git-worktrees 2> /dev/null; git wt prune; };f"
+	download = "!f(){ git clone --recursive --depth=1 --branch ${3:-master} $1 $2; };f"
+	dl = download
+	# Mark a repo as trusted
+	trust = "!mkdir -p .git/safe"
+
+[core]
+	excludesfile = ~/.gitignore_global
+
+[commit]
+	template = ~/.gitmessage
+
+[include]
+	path = ~/.gitconfig.local
